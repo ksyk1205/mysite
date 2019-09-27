@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<select id="getList" parameterType='map' resultType="boardvo" >
+		<![CDATA[
+		select 	board.user_no as user_no,
+		 		board.title as title,
+				user.name as user_name,
+				board.hit as hit,
+				date_format(board.reg_date, '%Y-%m-%d %h:%i:%s') as reg_date,
+				board.depth as depth,
+				board.no as no,
+				board.g_no as g_no,
+				board.o_no as o_no,
+				board.use_yn as use_yn
+					from board,user  
+			 		where board.user_no =user.no 
+			 		order by board.g_no DESC, board.o_no ASC Limit #{page },5		
+		]]>	
+					
+	</select>
+	
+		<select id="getListkeyword" parameterType='map' resultType="boardvo" >
+		<![CDATA[
+	 		
+	    select board.user_no as user_no, board.title as title,
+					user.name as user_name, board.hit as hit,
+					date_format(board.reg_date, '%Y-%m-%d %h:%i:%s') as reg_Date,
+					board.depth as depth,board.no as no,
+					board.g_no as g_no ,board.o_no as o_no ,board.use_yn as use_yn
+					from board,user  
+			 		where board.user_no=user.no
+			 		and (title like #{keyword }
+			 		or contents like #{keyword }
+			 		order by board.g_no DESC, board.o_no ASC Limit #{page },5		
+		]]>	
+					
+	</select>
+	
+	
+	
+	<select id="count" parameterType="String" resultType="int">
+	<![CDATA[
+	select count(*) from board where (title Like #{keyword } or contents Like #{keyword })
+	]]>
+	</select>
+	
+
+</mapper>
