@@ -14,9 +14,10 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board?page=${param.page}">
-					<input type = "hidden" name = "parent_no" value = "${param.no }">
-					<input type = "hidden" name = "a" value="write">
+				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board/write">
+					<input type = "hidden" name = "g_no" value ="${vo.g_no }">
+					<input type = "hidden" name = "o_no" value="${vo.o_no }">
+					<input type = "hidden" name = "depth" value="${vo.depth }">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -33,7 +34,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.servletContext.contextPath }/board?page=${param.page}">취소</a>
+						<a href="${pageContext.servletContext.contextPath }/board">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				

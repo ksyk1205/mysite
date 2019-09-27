@@ -44,12 +44,12 @@
 				</table>
 				<div class="bottom">
 					<c:if test="${authUser.no!=null }">
-					<a href="${pageContext.servletContext.contextPath }/board?a=writeform&no=${vo.no }&page=${param.page}">답글쓰기</a>
+					<a href="${pageContext.servletContext.contextPath }/board/request/${vo.no }?page=${param.page}">답글쓰기</a>
 					</c:if>
 					<a href="${pageContext.servletContext.contextPath }/board?page=${param.page}">글목록</a>
 					<c:if test="${authUser.no==vo.user_no}">
 						<a
-							href="${pageContext.servletContext.contextPath }/board?a=modifyform&no=${vo.no }&page=${param.page}">글수정</a>
+							href="${pageContext.servletContext.contextPath }/board/modify/${vo.no }?page=${param.page}">글수정</a>
 					</c:if>
 
 

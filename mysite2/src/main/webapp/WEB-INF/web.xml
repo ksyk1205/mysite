@@ -43,6 +43,7 @@
     <servlet-name>MainServlet</servlet-name>
     <url-pattern></url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <description></description>
     <display-name>UserServlet</display-name>
@@ -53,6 +54,7 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/user</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <description></description>
     <display-name>BoardServlet</display-name>
@@ -62,5 +64,14 @@
   <servlet-mapping>
     <servlet-name>BoardServlet</servlet-name>
     <url-pattern>/board</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>GuestbookServlet</servlet-name>
+  	<servlet-class>kr.co.itcen.mysite.controller.GuestbookServlet</servlet-class>  	
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>GuestbookServlet</servlet-name>
+  	<url-pattern>/guestbook</url-pattern>
   </servlet-mapping>
 </web-app>

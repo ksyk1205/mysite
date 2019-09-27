@@ -33,7 +33,7 @@ public class GuestbookDao {
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			System.out.println("error:" + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				if(pstmt != null) {
@@ -76,7 +76,7 @@ public class GuestbookDao {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("error:" + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				if(rs != null) {
@@ -134,7 +134,7 @@ public class GuestbookDao {
 				result.add(vo);
 			}
 		} catch (SQLException e) {
-			System.out.println("error:" + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				if(rs != null) {

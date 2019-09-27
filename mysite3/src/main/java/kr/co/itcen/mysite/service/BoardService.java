@@ -17,9 +17,33 @@ public class BoardService {
 		return boardDao.getList(page,keyword);
 	}
 	
-	public Boolean count(String keyword) {
+	public List<BoardVo> getListkeyword(int page, String keyword) {
+		return boardDao.getList(page,keyword);
+	}
+	public int count(String keyword) {
 		return boardDao.count(keyword);
 		
 	}
+	public int countkeyword(String keyword) {
+		return boardDao.count(keyword);
+	}
+	public Boolean write(BoardVo vo) {
+		return boardDao.insert(vo);
+	}
+	public Boolean newinsert(BoardVo vo) {
+		return boardDao.newinsert(vo);
+	}
+	public Boolean updateinsert(BoardVo vo) {
+		return boardDao.updateinsert(vo);
+	}
+	public BoardVo view(long no) {
+		return boardDao.view(no);
+	}
 
+	public Boolean modify(BoardVo vo) {
+		// TODO Auto-generated method stub
+		return boardDao.modify(vo);
+	}
+
+	
 }

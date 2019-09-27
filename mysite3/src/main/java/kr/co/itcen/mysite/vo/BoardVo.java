@@ -4,15 +4,14 @@ public class BoardVo {
 	private Long no;
 	private String title;
 	private String contents;
-	private int hit;
+	private Long hit;
 	private String reg_date;
-	private int g_no;
-	private int o_no;
-	private int depth;
+	private Long g_no;
+	private Long o_no;
+	private Long depth;
 	private Long user_no;
 	private String user_name;
-	private int use_yn;
-	
+	private Long use_yn;
 	public Long getNo() {
 		return no;
 	}
@@ -31,10 +30,10 @@ public class BoardVo {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public int getHit() {
+	public Long getHit() {
 		return hit;
 	}
-	public void setHit(int hit) {
+	public void setHit(Long hit) {
 		this.hit = hit;
 	}
 	public String getReg_date() {
@@ -43,22 +42,22 @@ public class BoardVo {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public int getG_no() {
+	public Long getG_no() {
 		return g_no;
 	}
-	public void setG_no(int g_no) {
+	public void setG_no(Long g_no) {
 		this.g_no = g_no;
 	}
-	public int getO_no() {
+	public Long getO_no() {
 		return o_no;
 	}
-	public void setO_no(int o_no) {
+	public void setO_no(Long o_no) {
 		this.o_no = o_no;
 	}
-	public int getDepth() {
+	public Long getDepth() {
 		return depth;
 	}
-	public void setDepth(int depth) {
+	public void setDepth(Long depth) {
 		this.depth = depth;
 	}
 	public Long getUser_no() {
@@ -67,17 +66,16 @@ public class BoardVo {
 	public void setUser_no(Long user_no) {
 		this.user_no = user_no;
 	}
-	
 	public String getUser_name() {
 		return user_name;
 	}
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
-	public int getUse_yn() {
+	public Long getUse_yn() {
 		return use_yn;
 	}
-	public void setUse_yn(int use_yn) {
+	public void setUse_yn(Long use_yn) {
 		this.use_yn = use_yn;
 	}
 	@Override
@@ -86,6 +84,8 @@ public class BoardVo {
 				+ reg_date + ", g_no=" + g_no + ", o_no=" + o_no + ", depth=" + depth + ", user_no=" + user_no
 				+ ", user_name=" + user_name + ", use_yn=" + use_yn + "]";
 	}
+	
+	
 	
 
 

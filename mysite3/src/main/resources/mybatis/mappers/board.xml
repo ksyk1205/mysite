@@ -5,49 +5,97 @@
 
 <mapper namespace="board">
 
-	<select id="getList" parameterType='map' resultType="boardvo" >
+	<select id="getList" parameterType="map" resultType="boardvo" >
 		<![CDATA[
-		select 	board.user_no as user_no,
-		 		board.title as title,
-				user.name as user_name,
-				board.hit as hit,
-				date_format(board.reg_date, '%Y-%m-%d %h:%i:%s') as reg_date,
-				board.depth as depth,
-				board.no as no,
-				board.g_no as g_no,
-				board.o_no as o_no,
-				board.use_yn as use_yn
-					from board,user  
-			 		where board.user_no =user.no 
-			 		order by board.g_no DESC, board.o_no ASC Limit #{page },5		
-		]]>	
-					
+		select 	b.user_no as user_no,
+		 		b.title as title,
+				u.name as user_name,
+				b.hit as hit,
+				date_format(b.reg_date, '%Y-%m-%d %h:%i:%s') as reg_date,
+				b.depth as depth,
+				b.no as no,
+				b.g_no as g_no,
+				b.o_no as o_no,
+				b.use_yn as use_yn
+		from board b, user u
+		where b.user_no =u.no
+		and (b.title like #{keyword} or b.contents like #{keyword})
+		order by b.g_no DESC, b.o_no ASC limit #{page },5
+		]]>
 	</select>
 	
-		<select id="getListkeyword" parameterType='map' resultType="boardvo" >
-		<![CDATA[
-	 		
-	    select board.user_no as user_no, board.title as title,
-					user.name as user_name, board.hit as hit,
-					date_format(board.reg_date, '%Y-%m-%d %h:%i:%s') as reg_Date,
-					board.depth as depth,board.no as no,
-					board.g_no as g_no ,board.o_no as o_no ,board.use_yn as use_yn
-					from board,user  
-			 		where board.user_no=user.no
-			 		and (title like #{keyword }
-			 		or contents like #{keyword }
-			 		order by board.g_no DESC, board.o_no ASC Limit #{page },5		
-		]]>	
-					
-	</select>
-	
-	
-	
+		
 	<select id="count" parameterType="String" resultType="int">
+	<![CDATA[
+	select count(*) from board 
+	]]>
+	<if test="#{_parameter}.length>0"> 
+		<![CDATA[where (title like #{keyword} or contents like #{keyword})]]>
+	</if>
+	</select>
+	
+	<select id="countkeyword" parameterType="String" resultType="int">
 	<![CDATA[
 	select count(*) from board where (title Like #{keyword } or contents Like #{keyword })
 	]]>
 	</select>
+
 	
+	<select id="view" parameterType="long" resultType="boardvo">
+	<![CDATA[	
+	select no, title, contents, user_no, reg_date, g_no, o_no, depth 
+	from board where no = #{no }
+	
+	]]>
+	</select>
+	
+	<insert id="write" parameterType="boardvo">
+	<![CDATA[
+	insert into board 
+	values(null,
+		 #{title }, 
+		 #{contents }, 
+		  0, 
+		 now(),
+		 (select ifnull(max(g_no)+1,1) from board as b), 
+		  1,
+		  0,
+		 #{user_no },
+		 0)
+	]]>
+	</insert>
+	
+	<insert id="newinsert" parameterType="boardvo">
+	<![CDATA[
+	insert into board 
+	values(null,
+		 #{title }, 
+		 #{contents }, 
+		  0, 
+		 now(),
+		 #{g_no }, 
+		 #{o_no },
+		 #{depth },
+		 #{user_no },
+		 0)
+	]]>
+	</insert>	
+	<update id="modify" parameterType="boardvo">
+	<![CDATA[
+	update 	board 	
+	set 	title= #{title},
+			contents = #{contents},
+			reg_date = now() 
+			where no = #{no}
+	]]>
+	</update>
+	<update id="updateinsert" parameterType="boardvo">
+	<![CDATA[
+	update board
+	set o_no =o_no+1
+	where g_no = #{g_no }
+	and o_no >= #{o_no }
+	]]>	
+	</update>
 
 </mapper>
