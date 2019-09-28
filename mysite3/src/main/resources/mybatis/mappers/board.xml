@@ -97,5 +97,21 @@
 	and o_no >= #{o_no }
 	]]>	
 	</update>
+	
+	<update id="hit" parameterType="Long" >
+	<![CDATA[
+	update board
+	set hit=hit+1
+	where no =#{no }
+	]]>
+	</update>
+	
+	<update id="delete" parameterType="Long">
+	<![CDATA[
+	update board
+	set use_yn = 1
+	where no = #{no }
+	]]>
+	</update>
 
 </mapper>

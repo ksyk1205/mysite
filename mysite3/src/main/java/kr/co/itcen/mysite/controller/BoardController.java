@@ -25,7 +25,9 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping(value={"/list",""})
-	public String list(Model model ,@RequestParam(value="page", defaultValue = "1", required = false) int page ,@RequestParam(value="keyword",defaultValue = "", required = false) String keyword) {
+	public String list(Model model ,
+			@RequestParam(value="page", defaultValue = "1", required = false) int page ,
+			@RequestParam(value="keyword",defaultValue = "", required = false) String keyword){
 		
 		List<BoardVo> list =boardService.getList(page ,keyword);
 		
@@ -44,6 +46,7 @@ public class BoardController {
 	@RequestMapping(value="/view/{no}", method=RequestMethod.GET)
 	public String view(@PathVariable("no") Long no, Model model) {	
 		model.addAttribute("vo",boardService.view(no));
+		boardService.hit(no);
 		return "board/view";
 	}
 	
@@ -84,5 +87,11 @@ public class BoardController {
 	public String modify(@PathVariable("no") Long no, @RequestParam("page") int page,@ModelAttribute BoardVo vo) {
 		boardService.modify(vo);
 		return "redirect:/board/view/"+no;
+	}
+	@RequestMapping(value="/delete/{no}",method=RequestMethod.GET)
+	public String delete(@PathVariable("no") Long no,HttpSession session ) {
+		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		boardService.delete(no);
+		return "redirect:/board";
 	}
 }

@@ -1,11 +1,5 @@
 package kr.co.itcen.mysite.repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,43 +65,9 @@ public class BoardDao {
 	}
 	
 	//view화면에 들어갈 때 hit가 증가하기위해서
-	public void hit(Long no) {
-
-		Connection connection = null;
-		PreparedStatement pstmt = null;
-
-
-		try {
-			connection = getConnection();
-
-			String sql = " update board set hit=hit+1 where no=?; ";
-			pstmt = connection.prepareStatement(sql);
-			pstmt.setLong(1,no);
-
-			pstmt.executeUpdate();
-
-
-
-		} catch (SQLException e) {
-			System.out.println("hit_error:" + e);
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-
-				if(pstmt != null) {
-					pstmt.close();
-				}
-
-				if(connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
+	public Boolean hit(Long no) {
+		int count = sqlSession.update("hit",no);
+		return count==1;
 	}
 
 	// 게시글을 수정하기 위한 modify
@@ -117,54 +77,9 @@ public class BoardDao {
 	}
 	//게시글을 삭제 하여 use_yn 값을 받아오기 위한 delete
 	//use_yn이 1이면 글 삭제 
-	public void delete(long no) {
-
-		Connection connection = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			connection = getConnection();
-
-			String sql =
-					"update board "
-							+ "set use_yn=1 where no =?";
-
-			pstmt = connection.prepareStatement(sql);
-			pstmt.setLong(1, no);
-
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			System.out.println("delete_error:" + e);
-		} finally {
-			try {
-				if(pstmt != null) {
-					pstmt.close();
-				}
-				if(connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}		
-	}
-
-	private Connection getConnection() throws SQLException {
-		Connection connection = null;
-
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			String url = "jdbc:mariadb://192.168.1.73:3306/webdb?characterEncoding=utf8";
-			connection = DriverManager.getConnection(url, "webdb", "webdb");
-
-		} catch (ClassNotFoundException e) {
-			System.out.println("Fail to Loading Driver:" + e);
-		}
-
-		return connection;
+	public Boolean delete(long no) {
+		int count = sqlSession.update("delete", no);
+		return count ==1;
 	}
 
 }

@@ -41,9 +41,15 @@ public class BoardService {
 	}
 
 	public Boolean modify(BoardVo vo) {
-		// TODO Auto-generated method stub
 		return boardDao.modify(vo);
 	}
+	public Boolean hit(Long no) {
+		return boardDao.hit(no);
+	}
+	public Boolean delete(Long no) {
+		return boardDao.delete(no);
+	}
+	
 
 	
 }
