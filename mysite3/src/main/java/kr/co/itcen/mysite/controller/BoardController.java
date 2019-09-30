@@ -89,8 +89,10 @@ public class BoardController {
 		return "redirect:/board/view/"+no;
 	}
 	@RequestMapping(value="/delete/{no}",method=RequestMethod.GET)
-	public String delete(@PathVariable("no") Long no,HttpSession session ) {
+	public String delete(@PathVariable("no") Long no,HttpSession session, Model model) {
 		UserVo authUser=(UserVo)session.getAttribute("authUser");
+		model.addAttribute("authUser",authUser);
+		
 		boardService.delete(no);
 		return "redirect:/board";
 	}

@@ -48,25 +48,23 @@ public class BoardDao {
 		return count==1;		
 	}
 	
-	
-	
 	// 답글 쓰기를 위한 newinsert
 	public Boolean newinsert(BoardVo vo) {
 		vo.setO_no(vo.getO_no()+1);
 		vo.setDepth(vo.getDepth()+1);
-		int count = sqlSession.insert("newinsert",vo);
+		int count = sqlSession.insert("board.newinsert",vo);
 		return count==1;
 	}
 	public Boolean updateinsert(BoardVo vo) {
 		vo.setO_no(vo.getO_no()+1);
 		vo.setDepth(vo.getDepth()+1);
-		int count = sqlSession.update("updateinsert",vo);
+		int count = sqlSession.update("board.updateinsert",vo);
 		return count>0;
 	}
 	
 	//view화면에 들어갈 때 hit가 증가하기위해서
 	public Boolean hit(Long no) {
-		int count = sqlSession.update("hit",no);
+		int count = sqlSession.update("board.hit",no);
 		return count==1;
 	}
 
@@ -78,7 +76,7 @@ public class BoardDao {
 	//게시글을 삭제 하여 use_yn 값을 받아오기 위한 delete
 	//use_yn이 1이면 글 삭제 
 	public Boolean delete(long no) {
-		int count = sqlSession.update("delete", no);
+		int count = sqlSession.update("board.delete", no);
 		return count ==1;
 	}
 
