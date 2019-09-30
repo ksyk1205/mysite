@@ -25,14 +25,6 @@
 	</select>
 	
 		
-	<select id="count" parameterType="String" resultType="int">
-	<![CDATA[
-	select count(*) from board 
-	]]>
-	<if test="#{_parameter}.length>0"> 
-		<![CDATA[where (title like #{keyword} or contents like #{keyword})]]>
-	</if>
-	</select>
 	
 	<select id="countkeyword" parameterType="String" resultType="int">
 	<![CDATA[
@@ -40,15 +32,15 @@
 	]]>
 	</select>
 
-	
+    <!-- 글을 볼때 -->
 	<select id="view" parameterType="long" resultType="boardvo">
 	<![CDATA[	
 	select no, title, contents, user_no, reg_date, g_no, o_no, depth 
 	from board where no = #{no }
-	
 	]]>
 	</select>
-	
+
+    <!--글을 작성할 때 -->
 	<insert id="write" parameterType="boardvo">
 	<![CDATA[
 	insert into board 
@@ -79,7 +71,8 @@
 		 #{user_no },
 		 0)
 	]]>
-	</insert>	
+	</insert>
+    <!-- 	글 수정 할때	 -->
 	<update id="modify" parameterType="boardvo">
 	<![CDATA[
 	update 	board 	
@@ -89,6 +82,7 @@
 			where no = #{no}
 	]]>
 	</update>
+	
 	<update id="updateinsert" parameterType="boardvo">
 	<![CDATA[
 	update board
@@ -98,6 +92,7 @@
 	]]>	
 	</update>
 	
+	<!-- view를 조회할 때 조회수 -->
 	<update id="hit" parameterType="Long" >
 	<![CDATA[
 	update board
@@ -106,6 +101,7 @@
 	]]>
 	</update>
 	
+    <!-- 삭제 -->
 	<update id="delete" parameterType="Long">
 	<![CDATA[
 	update board

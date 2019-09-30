@@ -49,7 +49,7 @@
 					<a href="${pageContext.servletContext.contextPath }/board?page=${param.page}">글목록</a>
 					<c:if test="${authUser.no==vo.user_no}">
 						<a
-							href="${pageContext.servletContext.contextPath }/board/modify/${vo.no }?page=${param.page}">글수정</a>
+							href="${pageContext.servletContext.contextPath }/board/modify/${vo.no }?page=${page}">글수정</a>
 					</c:if>
 
 

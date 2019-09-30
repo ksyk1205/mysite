@@ -1,5 +1,6 @@
 package kr.co.itcen.mysite.exception;
 
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -10,6 +11,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.itcen.mysite.dto.JSONResult;
 
@@ -39,6 +42,12 @@ public class GlobalExceptionHandler {
 			response.setStatus(HttpServletResponse.SC_OK);
 			
 			JSONResult jsonResult =JSONResult.fail(errors.toString());
+			String result =new ObjectMapper().writeValueAsString(jsonResult);
+			
+			OutputStream os =response.getOutputStream();
+			os.write(result.getBytes("utf-8"));
+			os.close();
+			
 		}else {
 			//3. 안내 페이지
 			request.setAttribute("uri", request.getRequestURI());

@@ -22,7 +22,6 @@ public class BoardService {
 	}
 	public int count(String keyword) {
 		return boardDao.count(keyword);
-		
 	}
 	public int countkeyword(String keyword) {
 		return boardDao.count(keyword);

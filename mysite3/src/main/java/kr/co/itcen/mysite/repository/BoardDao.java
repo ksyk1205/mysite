@@ -33,7 +33,7 @@ public class BoardDao {
 	//글의 총 개수를 가져오기 위한 count
 	public int count(String keyword) {
 		keyword = "%"+keyword+"%";
-		int	t_count =sqlSession.selectOne("board.count",keyword);
+		int	t_count =sqlSession.selectOne("board.countkeyword",keyword);
 		return t_count;
 
 	}
@@ -50,11 +50,10 @@ public class BoardDao {
 	
 	// 답글 쓰기를 위한 newinsert
 	public Boolean newinsert(BoardVo vo) {
-		vo.setO_no(vo.getO_no()+1);
-		vo.setDepth(vo.getDepth()+1);
 		int count = sqlSession.insert("board.newinsert",vo);
 		return count==1;
 	}
+	
 	public Boolean updateinsert(BoardVo vo) {
 		vo.setO_no(vo.getO_no()+1);
 		vo.setDepth(vo.getDepth()+1);

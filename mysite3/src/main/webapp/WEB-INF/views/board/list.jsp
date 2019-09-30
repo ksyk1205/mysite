@@ -44,7 +44,7 @@
 										[삭제된 게시물 입니다.]
 									</c:when>
 									<c:otherwise>
-										<a href="${pageContext.servletContext.contextPath }/board/view/${vo.no }?page=${param.page }">
+										<a href="${pageContext.servletContext.contextPath }/board/view/${vo.no }?page=${page }">
 											${vo.title } </a>
 									</c:otherwise>
 								</c:choose>
@@ -55,7 +55,7 @@
 							<td>${vo.reg_date }</td>
 							<c:if test='${authUser.no==vo.user_no&&vo.use_yn eq 0}'>
 								<td><a
-									href="${pageContext.servletContext.contextPath }/board/delete/${vo.no }"
+									href="${pageContext.servletContext.contextPath }/board/delete/${vo.no }?page=${page }"
 									class="del">삭제</a></td>
 							</c:if>
 						</tr>
@@ -98,7 +98,7 @@
 				<c:if test='${authUser.no!=null }'>
 					<div class="bottom">
 						<a
-							href="${pageContext.servletContext.contextPath }/board/write?page=${param.page }"
+							href="${pageContext.servletContext.contextPath }/board/write?page=${page }"
 							id="new-book">글쓰기</a>
 					</div>
 				</c:if>

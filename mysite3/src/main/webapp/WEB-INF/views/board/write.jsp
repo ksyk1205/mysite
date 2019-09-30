@@ -15,6 +15,7 @@
 		<div id="content">
 			<div id="board">
 				<form class="board-form" method="post" action="${pageContext.servletContext.contextPath }/board/write">
+					<input type ="hidden" name="page" value="${param.page}">
 					<input type = "hidden" name = "g_no" value ="${vo.g_no }">
 					<input type = "hidden" name = "o_no" value="${vo.o_no }">
 					<input type = "hidden" name = "depth" value="${vo.depth }">
@@ -34,7 +35,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.servletContext.contextPath }/board">취소</a>
+						<a href="${pageContext.servletContext.contextPath }/board/list?page=${page }">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				
