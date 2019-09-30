@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>mysite3</artifactId>
 	<packaging>war</packaging>
-
+	
 	<properties>
 		<org.springframework-version>4.3.20.RELEASE</org.springframework-version>
 		<jcloverslf4j.version>1.7.6</jcloverslf4j.version>
@@ -71,6 +71,13 @@
 			<version>1.4</version>
 		</dependency>
 
+		<!-- jackson -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.8</version>
+		</dependency>
+
 		<!-- Logback -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -81,9 +88,9 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
-		</dependency>
+		</dependency>	
 	</dependencies>
-
+	
 	<build>
 		<finalName>mysite3</finalName>
 		<plugins>
@@ -97,6 +104,6 @@
 					<password>admin</password>
 				</configuration>
 			</plugin>
-		</plugins>
-	</build>
+		</plugins>		
+	</build>	
 </project>
