@@ -53,7 +53,7 @@ public class BoardDao {
 		int count = sqlSession.insert("board.newinsert",vo);
 		return count==1;
 	}
-	
+	//답글을 위한 o_no,depth
 	public Boolean updateinsert(BoardVo vo) {
 		vo.setO_no(vo.getO_no()+1);
 		vo.setDepth(vo.getDepth()+1);

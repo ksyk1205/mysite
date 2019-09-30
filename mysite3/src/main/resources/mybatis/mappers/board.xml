@@ -4,7 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
-
+    <!-- 리스트 -->
 	<select id="getList" parameterType="map" resultType="boardvo" >
 		<![CDATA[
 		select 	b.user_no as user_no,
@@ -25,7 +25,7 @@
 	</select>
 	
 		
-	
+    <!-- 글의 개수를 세기 위한 count -->
 	<select id="countkeyword" parameterType="String" resultType="int">
 	<![CDATA[
 	select count(*) from board where (title Like #{keyword } or contents Like #{keyword })
@@ -56,7 +56,7 @@
 		 0)
 	]]>
 	</insert>
-	
+    <!-- 답글을 작성할 때 -->
 	<insert id="newinsert" parameterType="boardvo">
 	<![CDATA[
 	insert into board 

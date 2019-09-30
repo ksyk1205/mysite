@@ -16,7 +16,6 @@ public class BoardService {
 	public List<BoardVo> getList(int page, String keyword) {
 		return boardDao.getList(page,keyword);
 	}
-	
 	public List<BoardVo> getListkeyword(int page, String keyword) {
 		return boardDao.getList(page,keyword);
 	}
@@ -38,7 +37,6 @@ public class BoardService {
 	public BoardVo view(long no) {
 		return boardDao.view(no);
 	}
-
 	public Boolean modify(BoardVo vo) {
 		return boardDao.modify(vo);
 	}
@@ -48,7 +46,5 @@ public class BoardService {
 	public Boolean delete(Long no) {
 		return boardDao.delete(no);
 	}
-	
-
 	
 }
