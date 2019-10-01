@@ -56,6 +56,7 @@
 		 0)
 	]]>
 	</insert>
+	
     <!-- 답글을 작성할 때 -->
 	<insert id="newinsert" parameterType="boardvo">
 	<![CDATA[
@@ -82,7 +83,6 @@
 			where no = #{no}
 	]]>
 	</update>
-	
 	<update id="updateinsert" parameterType="boardvo">
 	<![CDATA[
 	update board

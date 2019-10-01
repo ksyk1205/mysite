@@ -10,7 +10,7 @@ import kr.co.itcen.mysite.vo.UserVo;
 public class UserService {
 	@Autowired
 	private UserDao userDao;
-
+	
 	public void join(UserVo vo) {
 			userDao.insert(vo);	
 	}

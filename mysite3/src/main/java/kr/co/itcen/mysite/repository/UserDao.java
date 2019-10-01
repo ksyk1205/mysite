@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import kr.co.itcen.mysite.exception.UserDaoException;
 import kr.co.itcen.mysite.vo.UserVo;
 
@@ -16,13 +15,11 @@ public class UserDao {
 
 	@Autowired
 	private SqlSession sqlSession;
-
-	
+		
 	//회원정보 수정에 가져와야될 get
 	public UserVo get(long no) {
 		return sqlSession.selectOne("user.getByNo", no);
 	}
-
 
 	//로그인 하기위해 필요한 정보를 가져오는 get
 	public UserVo get(UserVo vo) {
@@ -42,8 +39,6 @@ public class UserDao {
 		return result;		
 	}
 
-
-
 	//회원가입을 하기위한 insert
 	public Boolean insert(UserVo vo) throws UserDaoException { 
 		int count =sqlSession.insert("user.insert",vo);
@@ -56,6 +51,7 @@ public class UserDao {
 		return count == 1;
 	}
 	
+
 
 }
 
