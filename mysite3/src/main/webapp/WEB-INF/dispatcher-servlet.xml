@@ -14,7 +14,7 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
-	<aop:aspectj-autoproxy/>
+	<aop:aspectj-autoproxy />
 
 	<!-- validator, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven>
@@ -39,6 +39,25 @@
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler/>
 
+	<!-- Interceptor -->
+	<mvc:interceptors>
+	<!--<mvc:interceptor> 
+			<mvc:mapping path="/user/**" />
+		 	<bean class="kr.co.itcen.mysite.interceptor.MyInterceptor02"/> 
+		</mvc:interceptor> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/user/auth" />
+			<bean class="kr.co.itcen.mysite.security.LoginInterceptor" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/user/logout" />
+			<bean class="kr.co.itcen.mysite.security.LogoutInterceptor" />
+		</mvc:interceptor>
+
+	</mvc:interceptors>
+	
+	
 	<!-- View Resolver -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
@@ -47,7 +66,14 @@
 		<property name="order" value="1" />
 	</bean>
 	
-	
+	<!-- MessageSource -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	   <property name="basenames">
+	      <list>
+			<value>messages/messages_ko</value>
+	      </list>
+	   </property>
+	</bean>
 
 	<context:annotation-config />
 	<context:component-scan base-package="kr.co.itcen.mysite.controller, kr.co.itcen.mysite.exception" />
