@@ -23,9 +23,9 @@ public class UserVo {
 	private String role;
 	
 	//처음 설정값
-	public UserVo() {
-		gender="male";
-	}
+//	public UserVo() {
+//		gender="male";
+//	}
 
 	public Long getNo() {
 		return no;

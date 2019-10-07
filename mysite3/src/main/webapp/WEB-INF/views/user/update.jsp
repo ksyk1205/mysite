@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
@@ -25,22 +26,22 @@
 						action="${pageContext.servletContext.contextPath }/user/update">
 						
 					<label class="block-label" for="name">이름</label>
-					<form:input path="name"/>
+					<form:input path="name" />
 					<p style="font-weight:bold; color:red; text-align:left; padding:5px 0 0 0">
 						<form:errors path="name" />
 					</p>
 					
 					
 					<label class="block-label" for="email">이메일</label>
-					<h4>${vo.email }</h4>
+					<h4>${userVo.email }</h4>
+					<form:hidden path="email"/>
 					
 					<label class="block-label">패스워드</label> 
 					<form:password path='password'/>
 					
 					<label class="block-label">성별</label>
-					<p>
+					<br>
 					<form:radiobuttons items="${userVo.genders }" path='gender'/>
-					</p>
 
 
 					<input type="submit" value="수정하기">

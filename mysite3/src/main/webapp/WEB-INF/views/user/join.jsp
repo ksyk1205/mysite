@@ -75,7 +75,8 @@ $(function(){
 					<spring:hasBindErrors name="userVo">
 						<c:if test='${errors.hasFieldErrors("name") }'>
 							<p style="font-weight:bold; color:red; text-align:left; padding-left:0">
-								<spring:message code='${errors.getFieldError("name").codes[0] }' text='${errors.getFieldError("name").defaultMessage }' />
+								<spring:message code='${errors.getFieldError("name").codes[0] }'
+								 text='${errors.getFieldError("name").defaultMessage }' />
 							</p>
 						</c:if>
 					</spring:hasBindErrors>
@@ -87,7 +88,7 @@ $(function(){
 							src='${pageContext.servletContext.contextPath }/assets/images/check.png'/>
 					<p style="font-weight:bold; color:red; text-align:left; padding:5px 0 0 0">
 						<form:errors path="email" />
-					</p>
+					</p>	
 					
 					<label class="block-label" for="password">패스워드</label>
 					<form:password path='password'/>

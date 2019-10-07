@@ -51,7 +51,8 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login() {
+	public String login(@ModelAttribute UserVo vo) {
+		
 		return "user/login";
 	}
 
@@ -81,21 +82,36 @@ public class UserController {
 	
 	@Auth("USER")	
 	@RequestMapping(value="/update", method=RequestMethod.GET)
-	public String update(@ModelAttribute @AuthUser UserVo authUser) {	
+	public String update(@AuthUser UserVo authUser, Model model) {	
+		
 		
 		authUser = userService.getUser(authUser.getNo());
-//		Long no = authUser.getNo();
-//		UserVo userVo =userService.getUser(no);
-//		model.addAttribute("userVo", authUser);
+		model.addAttribute("userVo",authUser);
 		
 		return "user/update";
 	}
-	
+	@Auth("USER")	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public String update(
-		@ModelAttribute @Valid UserVo vo,
-		BindingResult result) {
-		return "user/update";
+		@Valid UserVo vo,
+		BindingResult result,
+		@AuthUser UserVo authUser,
+		Model model,
+		HttpSession session) {
+
+		System.out.println("authUser:"+vo);
+		if(result.hasErrors()) {
+			model.addAllAttributes(result.getModel());
+			model.addAttribute("userVo",vo);
+			return "user/update";
+		}
+		vo.setNo(authUser.getNo());
+		userService.update(vo);
+		
+//		session.removeAttribute("authUser");
+		session.setAttribute("authUser", vo);
+		
+		return "redirect:/";
 	}
 	
 }
