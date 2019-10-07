@@ -20,6 +20,7 @@ public class UserVo {
 	
 	private String gender;
 	private String joinDate;
+	private String role;
 	
 	//처음 설정값
 	public UserVo() {
@@ -68,10 +69,20 @@ public class UserVo {
 		return s;
 	}
 	
-	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
-				+ gender + ", joinDate=" + joinDate + "]";
+				+ gender + ", joinDate=" + joinDate + ", role=" + role + "]";
 	}
+	
+
+
 }

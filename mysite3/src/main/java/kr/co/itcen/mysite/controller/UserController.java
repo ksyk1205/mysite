@@ -11,9 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.co.itcen.mysite.security.Auth;
 import kr.co.itcen.mysite.service.UserService;
 import kr.co.itcen.mysite.vo.UserVo;
 
+@Auth
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -74,16 +77,19 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	@Auth("USER")	
 	@RequestMapping(value="/update", method=RequestMethod.GET)
-	public String update(@ModelAttribute UserVo vo,
+	public String update(@AuthUser UserVo authUser,
 					HttpSession session, 
-					Model model) {		
-		UserVo authUser =(UserVo) session.getAttribute("authUser");
-		if(authUser==null) {
-			return "redurect:/";
-		}
-		vo = userService.get(authUser.getNo());
-		model.addAttribute("vo",vo);
+					Model model) {	
+//		UserVo authUser =(UserVo) session.getAttribute("authUser");
+		Long no = authUser.getNo();	
+		UserVo userVo =userService.getUser(no);
+		model.addAttribute("userVo",userVo);
+//		if(authUser==null) {
+//			return "redurect:/";
+//		} 
+
 		return "user/update";
 	}
 	
