@@ -32,4 +32,8 @@ public class UserService {
 		return userDao.get(email) !=null;
 	}
 
+	public UserVo getUser(Long no) {
+		return userDao.get(no);
+	}
+
 }

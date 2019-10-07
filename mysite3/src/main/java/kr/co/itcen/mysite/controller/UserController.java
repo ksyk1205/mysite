@@ -13,16 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.itcen.mysite.security.Auth;
+import kr.co.itcen.mysite.security.AuthUser;
 import kr.co.itcen.mysite.service.UserService;
 import kr.co.itcen.mysite.vo.UserVo;
 
-@Auth
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
+
 
 	@RequestMapping(value="/joinsuccess", method=RequestMethod.GET)
 	public String joinsuccess() {
@@ -79,31 +81,21 @@ public class UserController {
 	
 	@Auth("USER")	
 	@RequestMapping(value="/update", method=RequestMethod.GET)
-	public String update(@AuthUser UserVo authUser,
-					HttpSession session, 
-					Model model) {	
-//		UserVo authUser =(UserVo) session.getAttribute("authUser");
-		Long no = authUser.getNo();	
-		UserVo userVo =userService.getUser(no);
-		model.addAttribute("userVo",userVo);
-//		if(authUser==null) {
-//			return "redurect:/";
-//		} 
-
+	public String update(@ModelAttribute @AuthUser UserVo authUser) {	
+		
+		authUser = userService.getUser(authUser.getNo());
+//		Long no = authUser.getNo();
+//		UserVo userVo =userService.getUser(no);
+//		model.addAttribute("userVo", authUser);
+		
 		return "user/update";
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String update(HttpSession session ,UserVo vo ) {
-		UserVo authUser =(UserVo) session.getAttribute("authUser");
-
-		vo.setNo(authUser.getNo());
-		userService.update(vo);
-		
-		authUser.setName(vo.getName());
-		session.setAttribute("authUser",authUser);
-		return "redirect:/";
-		
+	public String update(
+		@ModelAttribute @Valid UserVo vo,
+		BindingResult result) {
+		return "user/update";
 	}
 	
 }
