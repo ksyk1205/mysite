@@ -5,7 +5,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
-import kr.co.itcen.mysite.web.MVCConfig;
+
+import kr.co.itcen.config.web.MVCConfig;
 
 @Configuration
 @EnableAspectJAutoProxy //<aop:aspectj-autoproxy />

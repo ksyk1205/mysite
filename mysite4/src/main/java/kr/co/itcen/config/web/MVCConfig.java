@@ -1,4 +1,4 @@
-package kr.co.itcen.mysite.web;
+package kr.co.itcen.config.web;
 
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
