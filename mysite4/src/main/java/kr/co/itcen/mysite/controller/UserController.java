@@ -84,7 +84,7 @@ public class UserController {
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(@AuthUser UserVo authUser, Model model) {	
 		
-		
+		System.out.println(authUser);
 		authUser = userService.getUser(authUser.getNo());
 		model.addAttribute("userVo",authUser);
 		
@@ -113,5 +113,12 @@ public class UserController {
 		
 		return "redirect:/";
 	}
-	
+	@RequestMapping(value="/auth",method = RequestMethod.POST)
+	public void auth() {
+		
+	}
+	@RequestMapping(value="/logout",method = RequestMethod.GET)
+	public void logout() {
+		
+	}
 }

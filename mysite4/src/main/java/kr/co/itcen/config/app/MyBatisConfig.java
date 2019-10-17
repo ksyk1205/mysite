@@ -19,7 +19,7 @@ public class MyBatisConfig {
 			ApplicationContext applicationContext) throws Exception{
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
-		sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:kr/co/itcen/mysite/app/mybatis/configuration.xml"));
+		sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:kr/co/itcen/mysite/config/app/mybatis/configuration.xml"));
 		
 		
 		return sqlSessionFactoryBean.getObject();
