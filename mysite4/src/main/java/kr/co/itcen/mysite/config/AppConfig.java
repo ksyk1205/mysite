@@ -6,14 +6,14 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 import kr.co.itcen.config.app.DBConfig;
-import kr.co.itcen.config.app.MyBaisConfig;
+import kr.co.itcen.config.app.MyBatisConfig;
 
 //applicationContext.xml 대체 
 
 @Configuration
 @EnableAspectJAutoProxy
 @ComponentScan({"kr.co.itcen.mysite.service","kr.co.itcen.mysite.repository","kr.co.itcen.mysite.aspect"})
-@Import({DBConfig.class , MyBaisConfig.class})
+@Import({DBConfig.class , MyBatisConfig.class})
 public class AppConfig {
 
 }

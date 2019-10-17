@@ -3,31 +3,37 @@ package kr.co.itcen.config.app;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableTransactionManagement 
+@EnableTransactionManagement
+@PropertySource("classpath:kr/co/itcen/config/app/properties/jdbc.properties")
 public class DBConfig {
 	
+	@Autowired
+	Environment env;
+	
 	@Bean
-	public DataSource datesource() {
-		BasicDataSource basicDataSource = new BasicDataSource();
-		basicDataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-		basicDataSource.setUrl("jdbc:mariadb://192.168.1.73:3306/webdb?characterEncoding=utf8");
-		basicDataSource.setUsername("webdb");
-		basicDataSource.setPassword("webdb");
-		basicDataSource.setInitialSize(10);
-		basicDataSource.setMaxActive(100);
+	public DataSource dataSource() {
+		BasicDataSource basicDataSource = new BasicDataSource(); 
+		basicDataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+		basicDataSource.setUrl(env.getProperty("jdbc.url"));
+		basicDataSource.setUsername(env.getProperty("jdbc.username"));
+		basicDataSource.setPassword(env.getProperty("jdbc.password"));
+		basicDataSource.setInitialSize(env.getProperty("jdbc.initialSize", Integer.class));
+		basicDataSource.setMaxActive(env.getProperty("jdbc.maxActive",Integer.class)) ;
 		return basicDataSource;
 	}
-	@Bean
-	public PlatformTransactionManager transactionManager(DataSource datesource) {
-		return new DataSourceTransactionManager(datesource);
-	}
-		
 
+	@Bean
+	public PlatformTransactionManager transactionManager(DataSource dataSource) {
+		return new DataSourceTransactionManager(dataSource);
+	}
 }
