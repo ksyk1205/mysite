@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+    <!-- 리스트 -->
+	<select id="getList" parameterType="map" resultType="boardvo" >
+		<![CDATA[
+		select 	b.user_no as user_no,
+		 		b.title as title,
+				u.name as user_name,
+				b.hit as hit,
+				date_format(b.reg_date, '%Y-%m-%d %h:%i:%s') as reg_date,
+				b.depth as depth,
+				b.no as no,
+				b.g_no as g_no,
+				b.o_no as o_no,
+				b.use_yn as use_yn
+		from board b, user u
+		where b.user_no =u.no
+		and (b.title like #{keyword} or b.contents like #{keyword})
+		order by b.g_no DESC, b.o_no ASC limit #{page },5
+		]]>
+	</select>
+	
+		
+    <!-- 글의 개수를 세기 위한 count -->
+	<select id="countkeyword" parameterType="String" resultType="int">
+	<![CDATA[
+	select count(*) from board where (title Like #{keyword } or contents Like #{keyword })
+	]]>
+	</select>
+
+    <!-- 글을 볼때 -->
+	<select id="view" parameterType="long" resultType="boardvo">
+	<![CDATA[	
+	select no, title, contents, user_no, reg_date, g_no, o_no, depth 
+	from board where no = #{no }
+	]]>
+	</select>
+
+    <!--글을 작성할 때 -->
+	<insert id="write" parameterType="boardvo">
+	<![CDATA[
+	insert into board 
+	values(null,
+		 #{title }, 
+		 #{contents }, 
+		  0, 
+		 now(),
+		 (select ifnull(max(g_no)+1,1) from board as b), 
+		  1,
+		  0,
+		 #{user_no },
+		 0)
+	]]>
+	</insert>
+	
+    <!-- 답글을 작성할 때 -->
+	<insert id="newinsert" parameterType="boardvo">
+	<![CDATA[
+	insert into board 
+	values(null,
+		 #{title }, 
+		 #{contents }, 
+		  0, 
+		 now(),
+		 #{g_no }, 
+		 #{o_no },
+		 #{depth },
+		 #{user_no },
+		 0)
+	]]>
+	</insert>
+    <!-- 	글 수정 할때	 -->
+	<update id="modify" parameterType="boardvo">
+	<![CDATA[
+	update 	board 	
+	set 	title= #{title},
+			contents = #{contents},
+			reg_date = now() 
+			where no = #{no}
+	]]>
+	</update>
+	<update id="updateinsert" parameterType="boardvo">
+	<![CDATA[
+	update board
+	set o_no =o_no+1
+	where g_no = #{g_no }
+	and o_no >= #{o_no }
+	]]>	
+	</update>
+	
+	<!-- view를 조회할 때 조회수 -->
+	<update id="hit" parameterType="Long" >
+	<![CDATA[
+	update board
+	set hit=hit+1
+	where no =#{no }
+	]]>
+	</update>
+	
+    <!-- 삭제 -->
+	<update id="delete" parameterType="Long">
+	<![CDATA[
+	update board
+	set use_yn = 1
+	where no = #{no }
+	]]>
+	</update>
+
+</mapper>

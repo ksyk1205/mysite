@@ -87,5 +87,7 @@
 		<module>mysite2</module>
 		<module>mysite3</module>
 		<module>mysite4</module>
+		<module>mysite5</module>
+		<module>mysite6</module>
 	</modules>
 </project>
