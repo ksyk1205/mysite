@@ -11,6 +11,52 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(function(){
+	$("#add-form").submit(function(event){
+		event.preventDefault();
+		
+		// validation(client side)
+		vo = {};
+		vo.name = $("#input-name").val();
+		vo.password = $("#input-password").val();
+		vo.contents = $("#tx-content").val();
+		//console.log($.param(vo));
+		//console.log(JSON.stringify(vo));
+		
+		//ajax 통신
+		$.ajax({
+			url: "/mysite3/api/guestbook/add",
+			type: "post",
+			contentType: 'application/json', // 보내는 데이터의 타입: post방식 json
+			dataType: 'json',                // 받는 데이터의 타입
+			data: JSON.stringify(vo),
+			success: function(response){
+				//console.log(response);
+				if(response.result != "success"){
+					console.error(response.message);
+					return;
+				}
+				// rendering
+				var html = 
+					"<li data-no='" + response.data.no + "'>" +
+					"<strong>"+ response.data.name +"</strong>" +
+					"<p>"+ response.data.contents + "</p>" +
+					"<strong></strong>" +
+					"<a href='' data-no='" + response.data.no + "'>삭제</a>" + 
+					"</li>";
+				$("#list-guestbook").prepend(html);
+				$("#add-form")[0].reset();  //방명록 작성 후에 입력칸 reset
+			},
+			error: function(xhr, status, e){
+				console.error(status + ":" + e);
+			}
+		});
+		
+	})	
+	
+});
+</script>
 </head>
 <body>
 	<div id="container">
