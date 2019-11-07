@@ -20,10 +20,20 @@ public class GuestbookDao {
 		List<GuestbookVo> result = sqlSession.selectList("guestbook.getList");
 		return result;
 	}
+	public List<GuestbookVo> getList(Long startNo){
+		List<GuestbookVo> result = sqlSession.selectList("guestbook.getList3",startNo);
+		return result;
+	}
 	//방명록 글 삭제
 	public Boolean delete(GuestbookVo vo) {
 		int count =sqlSession.delete("guestbook.delete",vo);
 		return count ==1;		
+	}	
+	public Boolean delete(Long no, String password) {
+		GuestbookVo vo= new GuestbookVo();
+		vo.setNo(no);
+		vo.setPassword(password);
+		return delete(vo);
 	}	
 	//방명록 글 작성
 	public Boolean insert(GuestbookVo vo) {
